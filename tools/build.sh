@@ -106,6 +106,7 @@ default_targets=(
     powerpc64-unknown-freebsd
     powerpc64le-unknown-freebsd
     powerpc64-unknown-openbsd
+    powerpc64-ibm-aix
 
     # s390x
     # rustc --print target-list | grep -E '^s390x'
