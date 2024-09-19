@@ -281,7 +281,18 @@ RUSTFLAGS="--cfg portable_atomic_no_outline_atomics" cargo ...
             target_arch = "riscv64",
             target_arch = "s390x",
         ),
-        any(miri, portable_atomic_sanitize_thread),
+        any(
+            all(
+                test,
+                any(
+                    all(target_arch = "aarch64", portable_atomic_new_atomic_intrinsics),
+                    all(target_arch = "powerpc64", portable_atomic_llvm_15),
+                    all(target_arch = "s390x", portable_atomic_unstable_asm_experimental_arch),
+                ),
+            ),
+            miri,
+            portable_atomic_sanitize_thread,
+        ),
     ),
     allow(internal_features)
 )]
@@ -293,7 +304,18 @@ RUSTFLAGS="--cfg portable_atomic_no_outline_atomics" cargo ...
             target_arch = "riscv64",
             target_arch = "s390x",
         ),
-        any(miri, portable_atomic_sanitize_thread),
+        any(
+            all(
+                test,
+                any(
+                    all(target_arch = "aarch64", portable_atomic_new_atomic_intrinsics),
+                    all(target_arch = "powerpc64", portable_atomic_llvm_15),
+                    all(target_arch = "s390x", portable_atomic_unstable_asm_experimental_arch),
+                ),
+            ),
+            miri,
+            portable_atomic_sanitize_thread,
+        ),
     ),
     feature(core_intrinsics)
 )]
