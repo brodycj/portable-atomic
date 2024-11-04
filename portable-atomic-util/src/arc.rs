@@ -40,10 +40,7 @@ use core::{
     usize,
 };
 #[cfg(feature = "coerce-unsized")]
-use core::{
-    marker::Unsize,
-    ops::CoerceUnsized,
-};
+use core::{marker::Unsize, ops::CoerceUnsized};
 
 /// A soft limit on the amount of references that may be made to an `Arc`.
 ///
