@@ -497,6 +497,8 @@ jobs:
 
   test-bsd:
     needs: tidy
+    # XXX TODO @brodycj RAISE SEPARATE PR with CLEAR LABEL that THIS IS SPECIAL TESTING on *BSD
+    # XXX @brodycj TODO WHY DOES THIS WORK WITH coerce_unsized & unsize FEATURES ??? ???
     name: test (${{ matrix.target }}${{ matrix.version }})
     strategy:
       fail-fast: false
