@@ -1193,6 +1193,8 @@ impl<T: ?Sized> Deref for Arc<T> {
     }
 }
 
+// XXX TBD support PinCoerceUnsized for Arc & Weak - ???
+
 impl<T: ?Sized + CloneToUninit> Arc<T> {
     /// Makes a mutable reference into the given `Arc`.
     ///
