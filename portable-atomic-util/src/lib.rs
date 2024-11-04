@@ -61,6 +61,8 @@ See [#1] for other primitives being considered for addition to this crate.
 // docs.rs only (cfg is enabled by docs.rs, not build script)
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
+#![feature(coerce_unsized, unsize)]
+
 #[cfg(all(feature = "alloc", not(portable_atomic_no_alloc)))]
 extern crate alloc;
 #[cfg(feature = "std")]
