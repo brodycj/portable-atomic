@@ -38,6 +38,10 @@ std = ["alloc"]
 # - The MSRV when this feature is enabled and the `std` feature is *not* enabled is Rust 1.36 that `alloc` crate stabilized.
 alloc = []
 
+# XXX TODO ADD NOTE - XXX XXX REQUIRES RUST NIGHTLY
+# XXX TODO ADD CI TESTING WITH THIS FEATURE
+coerce-unsized = []
+
 # TODO: https://github.com/taiki-e/portable-atomic/issues/1
 # # Provides generic `atomic<t>` type.
 # generic = []
