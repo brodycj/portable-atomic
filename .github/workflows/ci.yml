@@ -69,6 +69,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        # XXX @brodycj TODO RAISE SEPARATE PROPOSAL TO MOVE SOME OR LOTS OF RUST VERSION TESTING TO DAILY OR WEEKLY CI TASK
         # LLVM version table:
         # - LLVM 3.9: stable 1.14 - 1.18, ?                         - ?
         # - LLVM 4  : stable 1.19 - 1.24, ?                         - ?
@@ -120,6 +121,7 @@ jobs:
           - rust: nightly
             flags: -Z codegen-backend=cranelift
           - rust: nightly
+            # XXX @brodycj TODO RAISE XXX TO REMOVE COMMENTED-OUT LINES LIKE THIS:
             # target: x86_64-apple-darwin
             os: macos-13 # x86_64
           - rust: nightly
@@ -199,6 +201,7 @@ jobs:
             target: armv7-unknown-linux-gnueabihf
           - rust: nightly
             target: armeb-unknown-linux-gnueabi
+          # XXX @brodycj TODO RAISE XXX - is this comment still relevant?
           # TODO: backtrace bug: panicked at /home/runner/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/../../backtrace/src/symbolize/gimli/libs_dl_iterate_phdr.rs:48:30:
           - rust: nightly-2024-08-30
             target: arm-linux-androideabi
@@ -502,6 +505,7 @@ jobs:
           - target: aarch64-unknown-freebsd
             os: freebsd
             version: '14.1'
+          # XXX @brodycj TODO RAISE XXX - INVESTIGATE IS THIS STILL AN ISSUE ???
           # TODO: download error: https://cdn.NetBSD.org/pub/pkgsrc/packages/NetBSD/aarch64/10.0/All/rust-1.76.0nb3.tgz truncated
           # - target: aarch64-unknown-netbsd
           #   os: netbsd
