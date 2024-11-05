@@ -60,10 +60,16 @@ See [#1] for other primitives being considered for addition to this crate.
 #![allow(clippy::inline_always)]
 // docs.rs only (cfg is enabled by docs.rs, not build script)
 #![cfg_attr(docsrs, feature(doc_cfg))]
-// XXX TODO THIS SHOULD BE CONDITIONAL ON coerce-unsized OR ON use of Rust nightly version - XXX @brodycj HOW CAN I DO THIS?
-// XXX TODO THIS IS BREAKING CI TESTING
-// XXX TODO ADD MEANINGFUL COMMENT HERE TO KEEP SEPARATION FROM CFG ITEMS ABOVE
-#![feature(coerce_unsized, unsize)]
+// XXX TODO UPDATE CI - TEST THIS IS OK FOR REMAINING NON-NIGHTLY RUST CASES IN CI
+#![cfg_attr(not(portable_atomic_no_coerce_unsized), feature(coerce_unsized, unsize))]
+
+// XXX XXX TODO REMOVE WORKAREA TESTING FROM HERE:
+// #[cfg(portable_atomic_no_coerce_unsized)]
+// compile_error!("compile error 1");
+
+// XXX XXX TODO REMOVE WORKAREA TESTING FROM HERE:
+// #[cfg(not(portable_atomic_no_coerce_unsized))]
+// compile_error!("compile error 2");
 
 #[cfg(all(feature = "alloc", not(portable_atomic_no_alloc)))]
 extern crate alloc;

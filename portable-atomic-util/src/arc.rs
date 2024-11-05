@@ -39,7 +39,7 @@ use core::{
     ptr::{self, NonNull},
     usize,
 };
-#[cfg(feature = "coerce-unsized")]
+#[cfg(not(portable_atomic_no_coerce_unsized))]
 use core::{marker::Unsize, ops::CoerceUnsized};
 
 /// A soft limit on the amount of references that may be made to an `Arc`.
@@ -117,7 +117,7 @@ impl<T: ?Sized + core::panic::RefUnwindSafe> core::panic::UnwindSafe for Arc<T> 
 #[cfg(all(portable_atomic_no_core_unwind_safe, feature = "std"))]
 impl<T: ?Sized + std::panic::RefUnwindSafe> std::panic::UnwindSafe for Arc<T> {}
 
-#[cfg(feature = "coerce-unsized")]
+#[cfg(not(portable_atomic_no_coerce_unsized))]
 impl<T: ?Sized + Unsize<U>, U: ?Sized> CoerceUnsized<Arc<U>> for Arc<T> {}
 
 impl<T: ?Sized> Arc<T> {

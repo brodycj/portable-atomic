@@ -105,9 +105,10 @@ jobs:
         # - LLVM 17 : stable 1.79 - 1.82, since https://github.com/rust-lang/rust/pull/122649
         # - LLVM 18 : stable 1.83 -     , since https://github.com/rust-lang/rust/pull/130487
         include:
-          # XXX TODO FIX & RE-ENABLE FOR MULTIPLE NON-NIGHTLY RUST VERSIONS
+          # XXX TODO RE-ENABLE FOR MULTIPLE NON-NIGHTLY RUST VERSIONS HERE & FURTHER BELOW
           # - rust: '1.56'
           - rust: nightly-2021-08-21 # Rust 1.56, LLVM 12
+          # XXX TODO RE-ENABLE FOR MULTIPLE NON-NIGHTLY RUST VERSIONS HERE & FURTHER BELOW
           # - rust: '1.59' # LLVM 13
           # XXX TBD ??? ??? ???:
           # - rust: '1.64' # LLVM 14
@@ -115,9 +116,8 @@ jobs:
           # - rust: '1.72' # LLVM 16
           # - rust: '1.77' # LLVM 17
           # - rust: '1.81' # LLVM 18
-          # XXX TODO FIX & RE-ENABLE FOR MULTIPLE NON-NIGHTLY RUST VERSIONS
-          # - rust: stable
-          # - rust: beta
+          - rust: stable
+          - rust: beta
           - rust: nightly
           - rust: nightly
             flags: -C panic=abort -Z panic_abort_tests
