@@ -107,7 +107,7 @@ jobs:
         include:
           # XXX TODO FIX & RE-ENABLE FOR MULTIPLE NON-NIGHTLY RUST VERSIONS
           # - rust: '1.56'
-          # - rust: nightly-2021-08-21 # Rust 1.56, LLVM 12
+          - rust: nightly-2021-08-21 # Rust 1.56, LLVM 12
           # - rust: '1.59' # LLVM 13
           # XXX TBD ??? ??? ???:
           # - rust: '1.64' # LLVM 14
