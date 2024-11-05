@@ -87,7 +87,10 @@ fn main() {
         println!("cargo:rustc-cfg=portable_atomic_no_error_in_core");
     }
 
-    // coerce_unsized only supported by Rust nightly: https://github.com/rust-lang/rust/issues/18598
+    // custom unsized coercions - only supported by Rust nightly at this point, see:
+    // - https://github.com/rust-lang/rust/issues/18598
+    // - https://github.com/taiki-e/portable-atomic/issues/143
+    // - https://doc.rust-lang.org/nightly/reference/type-coercions.html#unsized-coercions
     if !version.nightly {
         println!("cargo:rustc-cfg=portable_atomic_no_coerce_unsized");
     }
