@@ -169,7 +169,6 @@ uart
 umax
 umin
 unclonable
-unsize
 usart
 uscat
 uwrite
