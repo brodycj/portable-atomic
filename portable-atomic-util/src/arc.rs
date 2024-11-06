@@ -39,6 +39,8 @@ use core::{
     ptr::{self, NonNull},
     usize,
 };
+#[cfg(not(portable_atomic_no_coerce_unsized))]
+use core::{marker::Unsize, ops::CoerceUnsized};
 
 /// A soft limit on the amount of references that may be made to an `Arc`.
 ///
@@ -114,6 +116,9 @@ unsafe impl<T: ?Sized + Sync + Send> Sync for Arc<T> {}
 impl<T: ?Sized + core::panic::RefUnwindSafe> core::panic::UnwindSafe for Arc<T> {}
 #[cfg(all(portable_atomic_no_core_unwind_safe, feature = "std"))]
 impl<T: ?Sized + std::panic::RefUnwindSafe> std::panic::UnwindSafe for Arc<T> {}
+
+#[cfg(not(portable_atomic_no_coerce_unsized))]
+impl<T: ?Sized + Unsize<U>, U: ?Sized> CoerceUnsized<Arc<U>> for Arc<T> {}
 
 impl<T: ?Sized> Arc<T> {
     #[inline]
@@ -1185,6 +1190,8 @@ impl<T: ?Sized> Deref for Arc<T> {
         &self.inner().data
     }
 }
+
+// XXX TODO support PinCoerceUnsized for Arc & Weak (if possible)
 
 impl<T: ?Sized + CloneToUninit> Arc<T> {
     /// Makes a mutable reference into the given `Arc`.
