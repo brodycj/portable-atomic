@@ -69,6 +69,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        # XXX @brodycj TODO RAISE SEPARATE PROPOSAL TO MOVE SOME OR LOTS OF RUST VERSION TESTING TO DAILY OR WEEKLY CI TASK
         # LLVM version table:
         # - LLVM 3.9: stable 1.14 - 1.18, ?                         - ?
         # - LLVM 4  : stable 1.19 - 1.24, ?                         - ?
@@ -106,6 +107,7 @@ jobs:
           - rust: '1.56'
           - rust: nightly-2021-08-21 # Rust 1.56, LLVM 12
           - rust: '1.59' # LLVM 13
+          # XXX @brodycj TODO KEEP, REMOVE, OR ADD RATIONALE FOR COMMENTED-OUT ENTRIES - SEPARATE PR
           # - rust: '1.64' # LLVM 14
           # - rust: '1.69' # LLVM 15
           # - rust: '1.72' # LLVM 16
@@ -119,6 +121,7 @@ jobs:
           - rust: nightly
             flags: -Z codegen-backend=cranelift
           - rust: nightly
+            # XXX @brodycj TODO RAISE XXX TO REMOVE COMMENTED-OUT LINES LIKE THIS:
             # target: x86_64-apple-darwin
             os: macos-13 # x86_64
           - rust: nightly
@@ -143,6 +146,7 @@ jobs:
             target: aarch64-unknown-linux-gnu
           - rust: '1.59' # LLVM 13
             target: aarch64-unknown-linux-gnu
+          # XXX @brodycj TODO KEEP, REMOVE, OR ADD RATIONALE FOR COMMENTED-OUT ENTRIES - SEPARATE PR
           # - rust: '1.64' # LLVM 14
           #   target: aarch64-unknown-linux-gnu
           # - rust: '1.69' # LLVM 15
@@ -197,6 +201,7 @@ jobs:
             target: armv7-unknown-linux-gnueabihf
           - rust: nightly
             target: armeb-unknown-linux-gnueabi
+          # XXX @brodycj TODO RAISE XXX - is this comment still relevant?
           # TODO: backtrace bug: panicked at /home/runner/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/../../backtrace/src/symbolize/gimli/libs_dl_iterate_phdr.rs:48:30:
           - rust: nightly-2024-08-30
             target: arm-linux-androideabi
@@ -232,6 +237,7 @@ jobs:
             target: powerpc-unknown-linux-gnu
           - rust: nightly-2022-02-13 # Rust 1.60, LLVM 13 (oldest version we can use asm_experimental_arch on this target)
             target: powerpc64-unknown-linux-gnu
+          # XXX @brodycj TODO KEEP, REMOVE, OR ADD RATIONALE FOR COMMENTED-OUT ENTRIES - SEPARATE PR
           # - rust: nightly-2022-08-12 # Rust 1.65, LLVM 14
           #   target: powerpc64-unknown-linux-gnu
           # - rust: nightly-2023-03-25 # Rust 1.70, LLVM 15
@@ -246,6 +252,7 @@ jobs:
             target: powerpc64-unknown-linux-gnu
           - rust: nightly-2022-02-13 # Rust 1.60, LLVM 13 (oldest version we can use asm_experimental_arch on this target)
             target: powerpc64le-unknown-linux-gnu
+          # XXX @brodycj TODO KEEP, REMOVE, OR ADD RATIONALE FOR COMMENTED-OUT ENTRIES - SEPARATE PR
           # - rust: nightly-2022-08-12 # Rust 1.65, LLVM 14
           #   target: powerpc64le-unknown-linux-gnu
           # - rust: nightly-2023-03-25 # Rust 1.70, LLVM 15
@@ -260,6 +267,7 @@ jobs:
             target: powerpc64le-unknown-linux-gnu
           - rust: nightly-2022-08-12 # Rust 1.65, LLVM 14
             target: riscv32gc-unknown-linux-gnu
+          # XXX @brodycj TODO KEEP, REMOVE, OR ADD RATIONALE FOR COMMENTED-OUT ENTRIES - SEPARATE PR
           # - rust: nightly-2023-03-25 # Rust 1.70, LLVM 15
           #   target: riscv32gc-unknown-linux-gnu
           # - rust: nightly-2023-08-08 # Rust 1.73, LLVM 16
@@ -274,6 +282,7 @@ jobs:
             target: riscv64gc-unknown-linux-gnu
           - rust: '1.59' # LLVM 13
             target: riscv64gc-unknown-linux-gnu
+          # XXX @brodycj TODO KEEP, REMOVE, OR ADD RATIONALE FOR COMMENTED-OUT ENTRIES - SEPARATE PR
           # - rust: '1.64' # LLVM 14
           #   target: riscv64gc-unknown-linux-gnu
           # - rust: '1.69' # LLVM 15
@@ -293,6 +302,7 @@ jobs:
             flags: -Z codegen-backend=cranelift
           - rust: nightly-2023-05-09 # Rust 1.71, LLVM 16 (oldest version we can use asm_experimental_arch on this target)
             target: s390x-unknown-linux-gnu
+          # XXX @brodycj TODO KEEP, REMOVE, OR ADD RATIONALE FOR COMMENTED-OUT ENTRIES - SEPARATE PR
           # - rust: nightly-2024-02-13 # Rust 1.78, LLVM 17
           #   target: s390x-unknown-linux-gnu
           # - rust: nightly-2024-07-31 # Rust 1.82, LLVM 18
@@ -315,6 +325,7 @@ jobs:
           sysctl hw.optional machdep.cpu
           # brew install moreutils
         if: startsWith(matrix.os, 'macos')
+      # XXX @brodycj TODO KEEP, REMOVE, OR ADD RATIONALE FOR COMMENTED-OUT STEP HERE - SEPARATE PR
       # - run: |
       #     C:/msys64/usr/bin/pacman -S --noconfirm moreutils
       #   if: startsWith(matrix.os, 'windows')
@@ -482,6 +493,7 @@ jobs:
 
   test-bsd:
     needs: tidy
+    # XXX @brodycj TODO RAISE SEPARATE PR with CLEAR LABEL that THIS IS SPECIAL TESTING on *BSD
     name: test (${{ matrix.target }}${{ matrix.version }})
     strategy:
       fail-fast: false
@@ -493,6 +505,7 @@ jobs:
           - target: aarch64-unknown-freebsd
             os: freebsd
             version: '14.1'
+          # XXX @brodycj TODO RAISE XXX - INVESTIGATE IS THIS STILL AN ISSUE ???
           # TODO: download error: https://cdn.NetBSD.org/pub/pkgsrc/packages/NetBSD/aarch64/10.0/All/rust-1.76.0nb3.tgz truncated
           # - target: aarch64-unknown-netbsd
           #   os: netbsd
@@ -601,8 +614,10 @@ jobs:
       matrix:
         rust:
           - '1.64' # LLVM 14
+          # XXX @brodycj TODO KEEP, REMOVE, OR ADD RATIONALE FOR COMMENTED-OUT ENTRIES - SEPARATE PR
           # - '1.69' # LLVM 15
           - '1.72' # LLVM 16
+          # XXX @brodycj TODO KEEP, REMOVE, OR ADD RATIONALE FOR COMMENTED-OUT ENTRIES - SEPARATE PR
           # - '1.77' # LLVM 17
           # - '1.81' # LLVM 18
           - stable
