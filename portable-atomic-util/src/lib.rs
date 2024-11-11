@@ -60,14 +60,8 @@ See [#1] for other primitives being considered for addition to this crate.
 #![allow(clippy::inline_always)]
 // docs.rs only (cfg is enabled by docs.rs, not build script)
 #![cfg_attr(docsrs, feature(doc_cfg))]
-// Enable custom unsized coercions (custom feature) if enabled & possible with current Rust compiler version (see build.rs)
-#![cfg_attr(
-    all(portable_atomic_unstable_coerce_unsized, not(portable_atomic_no_unstable)),
-    feature(coerce_unsized, unsize)
-)]
-
-#[cfg(all(portable_atomic_no_unstable, portable_atomic_unstable_coerce_unsized))]
-compile_error!("`portable_atomic_unstable_coerce_unsized` cfg requires Rust nightly");
+// Enable custom unsized coercions if needed by cfg
+#![cfg_attr(portable_atomic_unstable_coerce_unsized, feature(coerce_unsized, unsize))]
 
 #[cfg(all(feature = "alloc", not(portable_atomic_no_alloc)))]
 extern crate alloc;

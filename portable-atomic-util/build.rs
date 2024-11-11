@@ -34,7 +34,7 @@ fn main() {
         // grep -F 'cargo:rustc-cfg=' build.rs | grep -Ev '^ *//' | sed -E 's/^.*cargo:rustc-cfg=//; s/(=\\)?".*$//' | LC_ALL=C sort -u | tr '\n' ',' | sed -E 's/,$/\n/'
         println!(
             // XXX @brodycj TODO RAISE PR TO SEPARATE THE ITEMS IN THIS CFG LIST
-            "cargo:rustc-check-cfg=cfg(portable_atomic_no_unstable,portable_atomic_no_alloc,portable_atomic_no_alloc_layout_extras,portable_atomic_no_core_unwind_safe,portable_atomic_no_error_in_core,portable_atomic_no_futures_api,portable_atomic_no_io_safety,portable_atomic_no_io_vec,portable_atomic_no_maybe_uninit,portable_atomic_no_min_const_generics,portable_atomic_no_track_caller,portable_atomic_no_unsafe_op_in_unsafe_fn,portable_atomic_sanitize_thread,portable_atomic_unstable_coerce_unsized)"
+            "cargo:rustc-check-cfg=cfg(portable_atomic_no_alloc,portable_atomic_no_alloc_layout_extras,portable_atomic_no_core_unwind_safe,portable_atomic_no_error_in_core,portable_atomic_no_futures_api,portable_atomic_no_io_safety,portable_atomic_no_io_vec,portable_atomic_no_maybe_uninit,portable_atomic_no_min_const_generics,portable_atomic_no_track_caller,portable_atomic_no_unsafe_op_in_unsafe_fn,portable_atomic_sanitize_thread,portable_atomic_unstable_coerce_unsized)"
         );
     }
 
@@ -85,15 +85,6 @@ fn main() {
     // error_in_core stabilized in Rust 1.81 (nightly-2024-06-09): https://github.com/rust-lang/rust/pull/125951
     if !version.probe(81, 2024, 6, 8) {
         println!("cargo:rustc-cfg=portable_atomic_no_error_in_core");
-    }
-
-    // unstable features with support for custom unsized coercions - only supported by Rust nightly at this point ref:
-    // - https://github.com/rust-lang/rust/issues/18598
-    // see also:
-    // - https://github.com/taiki-e/portable-atomic/issues/143
-    // - https://doc.rust-lang.org/nightly/reference/type-coercions.html#unsized-coercions
-    if !version.nightly {
-        println!("cargo:rustc-cfg=portable_atomic_no_unstable");
     }
 
     if version.nightly {
