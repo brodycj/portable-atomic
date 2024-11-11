@@ -106,6 +106,7 @@ jobs:
           - rust: '1.56'
           - rust: nightly-2021-08-21 # Rust 1.56, LLVM 12
           - rust: '1.59' # LLVM 13
+          # Extra LLVM version testing - check for LLVM version-specific issues
           # - rust: '1.64' # LLVM 14
           # - rust: '1.69' # LLVM 15
           # - rust: '1.72' # LLVM 16
@@ -143,6 +144,7 @@ jobs:
             target: aarch64-unknown-linux-gnu
           - rust: '1.59' # LLVM 13
             target: aarch64-unknown-linux-gnu
+          # Extra LLVM version testing - check for LLVM version-specific issues
           # - rust: '1.64' # LLVM 14
           #   target: aarch64-unknown-linux-gnu
           # - rust: '1.69' # LLVM 15
@@ -232,6 +234,7 @@ jobs:
             target: powerpc-unknown-linux-gnu
           - rust: nightly-2022-02-13 # Rust 1.60, LLVM 13 (oldest version we can use asm_experimental_arch on this target)
             target: powerpc64-unknown-linux-gnu
+          # Extra LLVM version testing - check for LLVM version-specific issues
           # - rust: nightly-2022-08-12 # Rust 1.65, LLVM 14
           #   target: powerpc64-unknown-linux-gnu
           # - rust: nightly-2023-03-25 # Rust 1.70, LLVM 15
@@ -246,6 +249,7 @@ jobs:
             target: powerpc64-unknown-linux-gnu
           - rust: nightly-2022-02-13 # Rust 1.60, LLVM 13 (oldest version we can use asm_experimental_arch on this target)
             target: powerpc64le-unknown-linux-gnu
+          # Extra LLVM version testing - check for LLVM version-specific issues
           # - rust: nightly-2022-08-12 # Rust 1.65, LLVM 14
           #   target: powerpc64le-unknown-linux-gnu
           # - rust: nightly-2023-03-25 # Rust 1.70, LLVM 15
@@ -260,6 +264,7 @@ jobs:
             target: powerpc64le-unknown-linux-gnu
           - rust: nightly-2022-08-12 # Rust 1.65, LLVM 14
             target: riscv32gc-unknown-linux-gnu
+          # Extra LLVM version testing - check for LLVM version-specific issues
           # - rust: nightly-2023-03-25 # Rust 1.70, LLVM 15
           #   target: riscv32gc-unknown-linux-gnu
           # - rust: nightly-2023-08-08 # Rust 1.73, LLVM 16
@@ -274,6 +279,7 @@ jobs:
             target: riscv64gc-unknown-linux-gnu
           - rust: '1.59' # LLVM 13
             target: riscv64gc-unknown-linux-gnu
+          # Extra LLVM version testing - check for LLVM version-specific issues
           # - rust: '1.64' # LLVM 14
           #   target: riscv64gc-unknown-linux-gnu
           # - rust: '1.69' # LLVM 15
@@ -295,6 +301,7 @@ jobs:
           #   target: s390x-unknown-linux-gnu
           - rust: nightly-2023-05-09 # Rust 1.71, LLVM 16 (oldest version we can use asm_experimental_arch on this target)
             target: s390x-unknown-linux-gnu
+          # Extra LLVM version testing - check for LLVM version-specific issues
           # - rust: nightly-2024-02-13 # Rust 1.78, LLVM 17
           #   target: s390x-unknown-linux-gnu
           # - rust: nightly-2024-07-31 # Rust 1.82, LLVM 18
@@ -603,8 +610,10 @@ jobs:
       matrix:
         rust:
           - '1.64' # LLVM 14
+          # Extra LLVM version testing - check for LLVM version-specific issues
           # - '1.69' # LLVM 15
           - '1.72' # LLVM 16
+          # Extra LLVM version testing - check for LLVM version-specific issues
           # - '1.77' # LLVM 17
           # - '1.81' # LLVM 18
           - stable
