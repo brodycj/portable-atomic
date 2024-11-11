@@ -356,6 +356,10 @@ jobs:
         if: matrix.rust == 'nightly-2024-02-13'
 
       - run: tools/test.sh -vv ${TARGET:-} ${DOCTEST_XCOMPILE:-} ${BUILD_STD:-} ${RELEASE:-}
+      - run: tools/test.sh -vv ${TARGET:-} ${BUILD_STD:-} ${RELEASE:-}
+        env:
+          RUSTFLAGS: ${{ env.RUSTFLAGS }} --cfg portable_atomic_coerce_unsized
+        if: startsWith(matrix.rust, 'nightly')
       # We test doctest only once with the default build conditions because doctest is slow. Both api-test
       # and src/tests have extended copies of doctest, so this will not reduce test coverage.
       # portable_atomic_no_outline_atomics only affects x86_64, AArch64, Arm, powerpc64, and RISC-V Linux.

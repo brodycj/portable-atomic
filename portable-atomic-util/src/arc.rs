@@ -39,7 +39,7 @@ use core::{
     ptr::{self, NonNull},
     usize,
 };
-#[cfg(not(portable_atomic_no_coerce_unsized))]
+#[cfg(portable_atomic_coerce_unsized)]
 use core::{marker::Unsize, ops::CoerceUnsized};
 
 /// A soft limit on the amount of references that may be made to an `Arc`.
@@ -79,6 +79,7 @@ macro_rules! acquire {
 /// This is an equivalent to [`std::sync::Arc`], but using [portable-atomic] for synchronization.
 /// See the documentation for [`std::sync::Arc`] for more details.
 ///
+/// XXX TODO UPDATE THIS FOR XXX FEATURE:
 /// **Note:** Unlike `std::sync::Arc`, coercing `Arc<T>` to `Arc<U>` is not supported at all.
 /// This is because coercing the pointee requires the
 /// [unstable `CoerceUnsized` trait](https://doc.rust-lang.org/nightly/core/ops/trait.CoerceUnsized.html).
@@ -117,7 +118,7 @@ impl<T: ?Sized + core::panic::RefUnwindSafe> core::panic::UnwindSafe for Arc<T> 
 #[cfg(all(portable_atomic_no_core_unwind_safe, feature = "std"))]
 impl<T: ?Sized + std::panic::RefUnwindSafe> std::panic::UnwindSafe for Arc<T> {}
 
-#[cfg(not(portable_atomic_no_coerce_unsized))]
+#[cfg(portable_atomic_coerce_unsized)]
 impl<T: ?Sized + Unsize<U>, U: ?Sized> CoerceUnsized<Arc<U>> for Arc<T> {}
 
 impl<T: ?Sized> Arc<T> {
@@ -1515,11 +1516,11 @@ impl Arc<dyn Any + Send + Sync> {
     /// }
     ///
     /// let my_string = "Hello World".to_string();
-    // TODO: CoerceUnsized is needed to cast Arc<String> -> Arc<dyn Any + Send + Sync> directly.
-    // /// print_if_string(Arc::new(my_string));
-    // /// print_if_string(Arc::new(0i8));
     /// print_if_string(Arc::from(Box::new(my_string) as Box<dyn Any + Send + Sync>));
     /// print_if_string(Arc::from(Box::new(0i8) as Box<dyn Any + Send + Sync>));
+    /// // or with XXX XXX FEATURE ENABLED WITH RUST NIGHTLY:
+    /// // print_if_string(Arc::new(my_string));
+    /// // print_if_string(Arc::new(0i8));
     /// ```
     #[inline]
     pub fn downcast<T>(self) -> Result<Arc<T>, Self>
@@ -2242,6 +2243,7 @@ impl<T> Default for Arc<[T]> {
     fn default() -> Self {
         // TODO: we cannot use non-allocation optimization (https://github.com/rust-lang/rust/blob/1.80.0/library/alloc/src/sync.rs#L3449)
         // for now due to casting Arc<[T; N]> -> Arc<[T]> requires unstable CoerceUnsized.
+        // (May now be possible with `portable_atomic_coerce_unsized` cfg enabled)
         let arr: [T; 0] = [];
         Arc::from(arr)
     }
