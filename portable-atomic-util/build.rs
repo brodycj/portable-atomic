@@ -34,7 +34,7 @@ fn main() {
         // grep -F 'cargo:rustc-cfg=' build.rs | grep -Ev '^ *//' | sed -E 's/^.*cargo:rustc-cfg=//; s/(=\\)?".*$//' | LC_ALL=C sort -u | tr '\n' ',' | sed -E 's/,$/\n/'
         println!(
             // XXX @brodycj TODO RAISE PR TO SEPARATE THE ITEMS IN THIS CFG LIST
-            "cargo:rustc-check-cfg=cfg(portable_atomic_no_unstable,portable_atomic_no_alloc,portable_atomic_no_alloc_layout_extras,portable_atomic_no_core_unwind_safe,portable_atomic_no_error_in_core,portable_atomic_no_futures_api,portable_atomic_no_io_safety,portable_atomic_no_io_vec,portable_atomic_no_maybe_uninit,portable_atomic_no_min_const_generics,portable_atomic_no_track_caller,portable_atomic_no_unsafe_op_in_unsafe_fn,portable_atomic_sanitize_thread,portable_atomic_coerce_unsized)"
+            "cargo:rustc-check-cfg=cfg(portable_atomic_no_unstable,portable_atomic_no_alloc,portable_atomic_no_alloc_layout_extras,portable_atomic_no_core_unwind_safe,portable_atomic_no_error_in_core,portable_atomic_no_futures_api,portable_atomic_no_io_safety,portable_atomic_no_io_vec,portable_atomic_no_maybe_uninit,portable_atomic_no_min_const_generics,portable_atomic_no_track_caller,portable_atomic_no_unsafe_op_in_unsafe_fn,portable_atomic_sanitize_thread,portable_atomic_unstable_coerce_unsized)"
         );
     }
 

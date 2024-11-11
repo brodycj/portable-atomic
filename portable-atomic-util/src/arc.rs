@@ -39,7 +39,7 @@ use core::{
     ptr::{self, NonNull},
     usize,
 };
-#[cfg(portable_atomic_coerce_unsized)]
+#[cfg(portable_atomic_unstable_coerce_unsized)]
 use core::{marker::Unsize, ops::CoerceUnsized};
 
 /// A soft limit on the amount of references that may be made to an `Arc`.
@@ -118,7 +118,7 @@ impl<T: ?Sized + core::panic::RefUnwindSafe> core::panic::UnwindSafe for Arc<T> 
 #[cfg(all(portable_atomic_no_core_unwind_safe, feature = "std"))]
 impl<T: ?Sized + std::panic::RefUnwindSafe> std::panic::UnwindSafe for Arc<T> {}
 
-#[cfg(portable_atomic_coerce_unsized)]
+#[cfg(portable_atomic_unstable_coerce_unsized)]
 impl<T: ?Sized + Unsize<U>, U: ?Sized> CoerceUnsized<Arc<U>> for Arc<T> {}
 
 impl<T: ?Sized> Arc<T> {
@@ -2243,7 +2243,7 @@ impl<T> Default for Arc<[T]> {
     fn default() -> Self {
         // TODO: we cannot use non-allocation optimization (https://github.com/rust-lang/rust/blob/1.80.0/library/alloc/src/sync.rs#L3449)
         // for now due to casting Arc<[T; N]> -> Arc<[T]> requires unstable CoerceUnsized.
-        // (May now be possible with `portable_atomic_coerce_unsized` cfg enabled)
+        // (May now be possible with `portable_atomic_unstable_coerce_unsized` cfg enabled)
         let arr: [T; 0] = [];
         Arc::from(arr)
     }
