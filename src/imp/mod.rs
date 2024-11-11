@@ -97,7 +97,7 @@ mod atomic128;
             target_arch = "aarch64",
             any(not(portable_atomic_no_asm), portable_atomic_unstable_asm),
         ),
-        all(target_arch = "arm64ec", portable_atomic_unstable_asm_experimental_arch),
+        all(target_arch = "arm64ec", not(portable_atomic_no_asm)),
         all(
             target_arch = "x86_64",
             any(not(portable_atomic_no_asm), portable_atomic_unstable_asm),
@@ -119,7 +119,7 @@ mod atomic128;
                 portable_atomic_target_feature = "quadword-atomics",
             ),
         ),
-        all(target_arch = "s390x", portable_atomic_unstable_asm_experimental_arch),
+        all(target_arch = "s390x", not(portable_atomic_no_asm)),
     ))
 ))]
 mod fallback;
@@ -298,7 +298,7 @@ items! {
             target_arch = "aarch64",
             any(not(portable_atomic_no_asm), portable_atomic_unstable_asm),
         ),
-        all(target_arch = "arm64ec", portable_atomic_unstable_asm_experimental_arch),
+        all(target_arch = "arm64ec", not(portable_atomic_no_asm)),
         all(
             target_arch = "x86_64",
             not(all(
@@ -363,7 +363,7 @@ items! {
                 ),
             ),
         ),
-        all(target_arch = "s390x", portable_atomic_unstable_asm_experimental_arch),
+        all(target_arch = "s390x", not(portable_atomic_no_asm)),
     )))]
     pub(crate) use self::fallback::{AtomicI128, AtomicU128};
 }
@@ -404,7 +404,7 @@ pub(crate) use self::atomic64::riscv32::{AtomicI64, AtomicU64};
 // AArch64
 #[cfg(any(
     all(target_arch = "aarch64", any(not(portable_atomic_no_asm), portable_atomic_unstable_asm)),
-    all(target_arch = "arm64ec", portable_atomic_unstable_asm_experimental_arch)
+    all(target_arch = "arm64ec", not(portable_atomic_no_asm))
 ))]
 pub(crate) use self::atomic128::aarch64::{AtomicI128, AtomicU128};
 // x86_64 & (cmpxchg16b | outline-atomics)
@@ -475,5 +475,5 @@ pub(crate) use self::atomic128::riscv64::{AtomicI128, AtomicU128};
 ))]
 pub(crate) use self::atomic128::powerpc64::{AtomicI128, AtomicU128};
 // s390x
-#[cfg(all(target_arch = "s390x", portable_atomic_unstable_asm_experimental_arch))]
+#[cfg(all(target_arch = "s390x", not(portable_atomic_no_asm)))]
 pub(crate) use self::atomic128::s390x::{AtomicI128, AtomicU128};
