@@ -201,9 +201,8 @@ jobs:
             target: armeb-unknown-linux-gnueabi
           # XXX @brodycj TODO RAISE XXX - CLARIFY THE STATUS OF THIS TEST MATRIX ENTRY:
           # TODO: backtrace bug: panicked at /home/runner/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/../../backtrace/src/symbolize/gimli/libs_dl_iterate_phdr.rs:48:30:
-          # XXX SKIP THIS TEST MATRIX ENTRY FOR NOW TO AVOID BUILD FAILURE IN THIS PR / XXX TODO SORT WHAT TO DO WITH THIS TEST MATRIX ENTRY
-          # - rust: nightly-2024-08-30
-          #   target: arm-linux-androideabi
+          - rust: nightly-2024-08-30
+            target: arm-linux-androideabi
           - rust: nightly
             target: i586-unknown-linux-gnu
           - rust: nightly-2021-08-21 # Rust 1.56, LLVM 12
