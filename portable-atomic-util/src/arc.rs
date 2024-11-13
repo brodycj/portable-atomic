@@ -2314,7 +2314,7 @@ impl<T, const N: usize> From<[T; N]> for Arc<[T]> {
     /// ```
     #[inline]
     fn from(v: [T; N]) -> Self {
-        // XXX TBD MAY NOT BE NEEDED WITH XXX CFG ENABLED WTIH RUST NIGHTLY XXX
+        // XXX TBD MAY NOT BE NEEDED WITH XXX CFG ENABLED WITH RUST NIGHTLY XXX
         // Casting Arc<[T; N]> -> Arc<[T]> requires unstable CoerceUnsized, so we convert via Box.
         // Since the compiler knows the actual size and metadata, the intermediate allocation is
         // optimized and generates the same code as when using CoerceUnsized and convert Arc<[T; N]> to Arc<[T]>.
