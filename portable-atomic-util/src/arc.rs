@@ -186,8 +186,8 @@ pub struct Weak<T: ?Sized> {
 unsafe impl<T: ?Sized + Sync + Send> Send for Weak<T> {}
 unsafe impl<T: ?Sized + Sync + Send> Sync for Weak<T> {}
 
-// XXX TODO XXX
-// impl<T: ?Sized + Unsize<U>, U: ?Sized, A: Allocator> CoerceUnsized<Weak<U, A>> for Weak<T, A> {}
+#[cfg(portable_atomic_unstable_coerce_unsized)]
+impl<T: ?Sized + Unsize<U>, U: ?Sized> CoerceUnsized<Weak<U>> for Weak<T> {}
 
 // XXX TODO XXX XXX
 // #[unstable(feature = "dispatch_from_dyn", issue = "none")]
