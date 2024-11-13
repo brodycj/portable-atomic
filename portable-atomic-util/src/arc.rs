@@ -121,6 +121,12 @@ impl<T: ?Sized + std::panic::RefUnwindSafe> std::panic::UnwindSafe for Arc<T> {}
 #[cfg(portable_atomic_unstable_coerce_unsized)]
 impl<T: ?Sized + Unsize<U>, U: ?Sized> CoerceUnsized<Arc<U>> for Arc<T> {}
 
+// XXX TODO RAISE ISSUE TO IMPROVE FEATURE PARITY WITH RUST STD ARC
+
+// XXX TODO XXX XXX
+// #[unstable(feature = "dispatch_from_dyn", issue = "none")]
+// impl<T: ?Sized + Unsize<U>, U: ?Sized> DispatchFromDyn<Arc<U>> for Arc<T> {}
+
 impl<T: ?Sized> Arc<T> {
     #[inline]
     fn into_inner_non_null(this: Self) -> NonNull<ArcInner<T>> {
@@ -179,6 +185,13 @@ pub struct Weak<T: ?Sized> {
 
 unsafe impl<T: ?Sized + Sync + Send> Send for Weak<T> {}
 unsafe impl<T: ?Sized + Sync + Send> Sync for Weak<T> {}
+
+// XXX TODO XXX
+impl<T: ?Sized + Unsize<U>, U: ?Sized, A: Allocator> CoerceUnsized<Weak<U, A>> for Weak<T, A> {}
+
+// XXX TODO XXX XXX
+// #[unstable(feature = "dispatch_from_dyn", issue = "none")]
+// impl<T: ?Sized + Unsize<U>, U: ?Sized> DispatchFromDyn<Weak<U>> for Weak<T> {}
 
 impl<T: ?Sized> fmt::Debug for Weak<T> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -2301,6 +2314,7 @@ impl<T, const N: usize> From<[T; N]> for Arc<[T]> {
     /// ```
     #[inline]
     fn from(v: [T; N]) -> Self {
+        // XXX TBD MAY NOT BE NEEDED WITH XXX CFG ENABLED WTIH RUST NIGHTLY XXX
         // Casting Arc<[T; N]> -> Arc<[T]> requires unstable CoerceUnsized, so we convert via Box.
         // Since the compiler knows the actual size and metadata, the intermediate allocation is
         // optimized and generates the same code as when using CoerceUnsized and convert Arc<[T; N]> to Arc<[T]>.
