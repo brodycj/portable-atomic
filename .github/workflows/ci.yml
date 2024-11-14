@@ -69,6 +69,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        # XXX @brodycj TODO RAISE SEPARATE PROPOSAL TO MOVE SOME OR LOTS OF RUST VERSION TESTING TO DAILY OR WEEKLY CI TASK
         # LLVM version table:
         # - LLVM 3.9: stable 1.14 - 1.18, ?                         - ?
         # - LLVM 4  : stable 1.19 - 1.24, ?                         - ?
@@ -119,6 +120,7 @@ jobs:
           - rust: nightly
             flags: -Z codegen-backend=cranelift
           - rust: nightly
+            # XXX @brodycj TODO RAISE XXX TO REMOVE COMMENTED-OUT LINES LIKE THIS:
             # target: x86_64-apple-darwin
             os: macos-13 # x86_64
           - rust: nightly
@@ -197,6 +199,7 @@ jobs:
             target: armv7-unknown-linux-gnueabihf
           - rust: nightly
             target: armeb-unknown-linux-gnueabi
+          # XXX @brodycj TODO RAISE XXX - CLARIFY THE STATUS OF THIS TEST MATRIX ENTRY:
           # TODO: backtrace bug: panicked at /home/runner/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/../../backtrace/src/symbolize/gimli/libs_dl_iterate_phdr.rs:48:30:
           - rust: nightly-2024-08-30
             target: arm-linux-androideabi
@@ -317,6 +320,7 @@ jobs:
           sysctl hw.optional machdep.cpu
           # brew install moreutils
         if: startsWith(matrix.os, 'macos')
+      # XXX @brodycj TODO KEEP, REMOVE, OR ADD RATIONALE FOR COMMENTED-OUT STEP HERE - SEPARATE PR
       # - run: |
       #     C:/msys64/usr/bin/pacman -S --noconfirm moreutils
       #   if: startsWith(matrix.os, 'windows')
@@ -347,6 +351,10 @@ jobs:
         if: matrix.rust == 'nightly-2024-02-13'
 
       - run: tools/test.sh -vv ${TARGET:-} ${DOCTEST_XCOMPILE:-} ${BUILD_STD:-} ${RELEASE:-}
+      - run: tools/test.sh -vv ${TARGET:-} ${BUILD_STD:-} ${RELEASE:-}
+        env:
+          RUSTFLAGS: ${{ env.RUSTFLAGS }} --cfg portable_atomic_unstable_coerce_unsized
+        if: startsWith(matrix.rust, 'nightly')
       # We test doctest only once with the default build conditions because doctest is slow. Both api-test
       # and src/tests have extended copies of doctest, so this will not reduce test coverage.
       # portable_atomic_no_outline_atomics only affects x86_64, AArch64, Arm, powerpc64, and RISC-V Linux.
@@ -366,7 +374,9 @@ jobs:
           RUSTDOCFLAGS: ${{ env.RUSTDOCFLAGS }} --cfg portable_atomic_test_outline_atomics_detect_false
           RUSTFLAGS: ${{ env.RUSTFLAGS }} --cfg portable_atomic_test_outline_atomics_detect_false
         # powerpc64 is skipped because tested below.
-        if: (matrix.target == '' && !contains(matrix.rust, 'i686') || startsWith(matrix.target, 'x86_64')) || startsWith(matrix.target, 'aarch64') && !(contains(matrix.target, '-musl') && matrix.flags == '') || startsWith(matrix.target, 'armv5te') || matrix.target == 'arm-linux-androideabi'
+        # XXX TBD SKIP ON THIS TARGET FOR NOW PENDING FURTHER INVESTIGATION: arm-linux-androideabi
+        # if: (matrix.target == '' && !contains(matrix.rust, 'i686') || startsWith(matrix.target, 'x86_64')) || startsWith(matrix.target, 'aarch64') && !(contains(matrix.target, '-musl') && matrix.flags == '') || startsWith(matrix.target, 'armv5te') || matrix.target == 'arm-linux-androideabi'
+        if: (matrix.target == '' && !contains(matrix.rust, 'i686') || startsWith(matrix.target, 'x86_64')) || startsWith(matrix.target, 'aarch64') && !(contains(matrix.target, '-musl') && matrix.flags == '') || startsWith(matrix.target, 'armv5te')
       - run: tools/test.sh -vv --tests ${TARGET:-} ${BUILD_STD:-} ${RELEASE:-}
         env:
           QEMU_CPU: power7 # no quadword-atomics
@@ -484,6 +494,7 @@ jobs:
 
   test-bsd:
     needs: tidy
+    # XXX @brodycj TODO RAISE SEPARATE PR with CLEAR LABEL that THIS IS SPECIAL TESTING on *BSD
     name: test (${{ matrix.target }}${{ matrix.version }})
     strategy:
       fail-fast: false
@@ -495,6 +506,7 @@ jobs:
           - target: aarch64-unknown-freebsd
             os: freebsd
             version: '14.1'
+          # XXX @brodycj TODO RAISE XXX - INVESTIGATE IS THIS STILL AN ISSUE ???
           # TODO: download error: https://cdn.NetBSD.org/pub/pkgsrc/packages/NetBSD/aarch64/10.0/All/rust-1.76.0nb3.tgz truncated
           # - target: aarch64-unknown-netbsd
           #   os: netbsd

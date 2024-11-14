@@ -39,6 +39,8 @@ use core::{
     ptr::{self, NonNull},
     usize,
 };
+#[cfg(portable_atomic_unstable_coerce_unsized)]
+use core::{marker::Unsize, ops::CoerceUnsized};
 
 /// A soft limit on the amount of references that may be made to an `Arc`.
 ///
@@ -77,6 +79,7 @@ macro_rules! acquire {
 /// This is an equivalent to [`std::sync::Arc`], but using [portable-atomic] for synchronization.
 /// See the documentation for [`std::sync::Arc`] for more details.
 ///
+/// XXX TODO UPDATE THIS FOR portable_atomic_no_core_unwind_safe CFG FEATURE:
 /// **Note:** Unlike `std::sync::Arc`, coercing `Arc<T>` to `Arc<U>` is not supported at all.
 /// This is because coercing the pointee requires the
 /// [unstable `CoerceUnsized` trait](https://doc.rust-lang.org/nightly/core/ops/trait.CoerceUnsized.html).
@@ -114,6 +117,15 @@ unsafe impl<T: ?Sized + Sync + Send> Sync for Arc<T> {}
 impl<T: ?Sized + core::panic::RefUnwindSafe> core::panic::UnwindSafe for Arc<T> {}
 #[cfg(all(portable_atomic_no_core_unwind_safe, feature = "std"))]
 impl<T: ?Sized + std::panic::RefUnwindSafe> std::panic::UnwindSafe for Arc<T> {}
+
+#[cfg(portable_atomic_unstable_coerce_unsized)]
+impl<T: ?Sized + Unsize<U>, U: ?Sized> CoerceUnsized<Arc<U>> for Arc<T> {}
+
+// XXX TODO RAISE ISSUE TO IMPROVE FEATURE PARITY WITH RUST STD ARC
+
+// XXX TBD UNSTABLE FEATURE with DispatchFromDyn support - ???
+// #[unstable(feature = "dispatch_from_dyn", issue = "none")]
+// impl<T: ?Sized + Unsize<U>, U: ?Sized> DispatchFromDyn<Arc<U>> for Arc<T> {}
 
 impl<T: ?Sized> Arc<T> {
     #[inline]
@@ -173,6 +185,13 @@ pub struct Weak<T: ?Sized> {
 
 unsafe impl<T: ?Sized + Sync + Send> Send for Weak<T> {}
 unsafe impl<T: ?Sized + Sync + Send> Sync for Weak<T> {}
+
+#[cfg(portable_atomic_unstable_coerce_unsized)]
+impl<T: ?Sized + Unsize<U>, U: ?Sized> CoerceUnsized<Weak<U>> for Weak<T> {}
+
+// XXX TBD UNSTABLE FEATURE with DispatchFromDyn support - ???
+// #[unstable(feature = "dispatch_from_dyn", issue = "none")]
+// impl<T: ?Sized + Unsize<U>, U: ?Sized> DispatchFromDyn<Weak<U>> for Weak<T> {}
 
 impl<T: ?Sized> fmt::Debug for Weak<T> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -1186,6 +1205,8 @@ impl<T: ?Sized> Deref for Arc<T> {
     }
 }
 
+// XXX TODO support PinCoerceUnsized for Arc & Weak (if possible)
+
 impl<T: ?Sized + CloneToUninit> Arc<T> {
     /// Makes a mutable reference into the given `Arc`.
     ///
@@ -1508,11 +1529,11 @@ impl Arc<dyn Any + Send + Sync> {
     /// }
     ///
     /// let my_string = "Hello World".to_string();
-    // TODO: CoerceUnsized is needed to cast Arc<String> -> Arc<dyn Any + Send + Sync> directly.
-    // /// print_if_string(Arc::new(my_string));
-    // /// print_if_string(Arc::new(0i8));
     /// print_if_string(Arc::from(Box::new(my_string) as Box<dyn Any + Send + Sync>));
     /// print_if_string(Arc::from(Box::new(0i8) as Box<dyn Any + Send + Sync>));
+    /// // or with XXX portable_atomic_no_core_unwind_safe CFG FEATURE ENABLED WITH RUST NIGHTLY:
+    /// // print_if_string(Arc::new(my_string));
+    /// // print_if_string(Arc::new(0i8));
     /// ```
     #[inline]
     pub fn downcast<T>(self) -> Result<Arc<T>, Self>
@@ -2235,6 +2256,7 @@ impl<T> Default for Arc<[T]> {
     fn default() -> Self {
         // TODO: we cannot use non-allocation optimization (https://github.com/rust-lang/rust/blob/1.80.0/library/alloc/src/sync.rs#L3449)
         // for now due to casting Arc<[T; N]> -> Arc<[T]> requires unstable CoerceUnsized.
+        // (May now be possible with `portable_atomic_unstable_coerce_unsized` cfg enabled)
         let arr: [T; 0] = [];
         Arc::from(arr)
     }
@@ -2292,6 +2314,7 @@ impl<T, const N: usize> From<[T; N]> for Arc<[T]> {
     /// ```
     #[inline]
     fn from(v: [T; N]) -> Self {
+        // XXX TBD MAY NOT BE NEEDED WITH portable_atomic_no_core_unwind_safe CFG FEATURE ENABLED WITH RUST NIGHTLY
         // Casting Arc<[T; N]> -> Arc<[T]> requires unstable CoerceUnsized, so we convert via Box.
         // Since the compiler knows the actual size and metadata, the intermediate allocation is
         // optimized and generates the same code as when using CoerceUnsized and convert Arc<[T; N]> to Arc<[T]>.
