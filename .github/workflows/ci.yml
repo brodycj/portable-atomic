@@ -596,8 +596,11 @@ jobs:
             rust: nightly
             target-group: tier1/tier2
             skip-default-target: 1
-          - name: nightly, all tier3
-            rust: nightly
+          # XXX ???
+          # XXX TBD WORKAROUND - AVOID ISSUE BETWEEN NIGHTLY & THIS TARGET: powerpc64-ibm-aix
+          # XXX TODO SEE IF A NEWER NIGHTLY VERSION SUCCEEDS
+          - name: nightly-2024-11-07, all tier3
+            rust: nightly-2024-11-07
             target-group: tier3
             skip-default-target: 1
     runs-on: ubuntu-latest
