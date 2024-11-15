@@ -620,10 +620,10 @@ jobs:
       - uses: taiki-e/github-actions/install-rust@main
         with:
           toolchain: ${{ matrix.rust }}
-      - uses: taiki-e/install-action@cargo-hack
       - run: cargo install rustup-toolchain-install-master
       - run: rustup-toolchain-install-master 76fd47124b8f8037b6187169b2cdf39139466952
       - run: rustup default 76fd47124b8f8037b6187169b2cdf39139466952
+      - uses: taiki-e/install-action@cargo-hack
       - run: rustc --version
       - run: tools/build.sh
         env:
