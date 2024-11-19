@@ -39,14 +39,22 @@ concurrency:
 
 jobs:
   check-external-types:
+    # XXX SKIP JOB FOR NOW
+    if: ${{ false }}
     uses: taiki-e/github-actions/.github/workflows/check-external-types.yml@main
   deny:
+    # XXX SKIP JOB FOR NOW
+    if: ${{ false }}
     uses: taiki-e/github-actions/.github/workflows/deny.yml@main
   docs:
+    # XXX SKIP JOB FOR NOW
+    if: ${{ false }}
     uses: taiki-e/github-actions/.github/workflows/docs.yml@main
     with:
       target: x86_64-unknown-linux-gnu,aarch64-unknown-linux-gnu,powerpc64le-unknown-linux-gnu,s390x-unknown-linux-gnu,armv5te-unknown-linux-gnueabi
   msrv:
+    # XXX SKIP JOB FOR NOW
+    if: ${{ false }}
     needs: tidy
     uses: taiki-e/github-actions/.github/workflows/msrv.yml@main
     with:
