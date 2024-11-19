@@ -215,7 +215,7 @@ jobs:
           # XXX / ---
           # XXX TBD XXX XXX
           # TODO: backtrace bug: panicked at /home/runner/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/../../backtrace/src/symbolize/gimli/libs_dl_iterate_phdr.rs:48:30:
-          - rust: nightly
+          - rust: nightly-2024-08-30
             target: arm-linux-androideabi
           # XXX @brodycj SKIP FOR NOW TO SPEED UP CI IN THIS PR - XXX @brodycj TODO RE-ENABLE BEFORE MERGING
           # - rust: nightly
