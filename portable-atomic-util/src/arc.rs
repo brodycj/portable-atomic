@@ -115,6 +115,16 @@ impl<T: ?Sized + core::panic::RefUnwindSafe> core::panic::UnwindSafe for Arc<T> 
 #[cfg(all(portable_atomic_no_core_unwind_safe, feature = "std"))]
 impl<T: ?Sized + std::panic::RefUnwindSafe> std::panic::UnwindSafe for Arc<T> {}
 
+// XXX TODO RAISE ISSUE TO IMPROVE FEATURE PARITY WITH RUST STD ARC
+
+// XXX TBD PROPOSED IN PR 195:
+// #[cfg(portable_atomic_unstable_coerce_unsized)]
+// impl<T: ?Sized + Unsize<U>, U: ?Sized> CoerceUnsized<Arc<U>> for Arc<T> {}
+
+// XXX TBD UNSTABLE FEATURE with DispatchFromDyn support - ???
+// #[unstable(feature = "dispatch_from_dyn", issue = "none")]
+// impl<T: ?Sized + Unsize<U>, U: ?Sized> DispatchFromDyn<Arc<U>> for Arc<T> {}
+
 impl<T: ?Sized> Arc<T> {
     #[inline]
     fn into_inner_non_null(this: Self) -> NonNull<ArcInner<T>> {
@@ -173,6 +183,14 @@ pub struct Weak<T: ?Sized> {
 
 unsafe impl<T: ?Sized + Sync + Send> Send for Weak<T> {}
 unsafe impl<T: ?Sized + Sync + Send> Sync for Weak<T> {}
+
+// XXX TBD PROPOSED IN PR 195:
+// #[cfg(portable_atomic_unstable_coerce_unsized)]
+// impl<T: ?Sized + Unsize<U>, U: ?Sized> CoerceUnsized<Weak<U>> for Weak<T> {}
+
+// XXX TBD UNSTABLE FEATURE with DispatchFromDyn support - ???
+// #[unstable(feature = "dispatch_from_dyn", issue = "none")]
+// impl<T: ?Sized + Unsize<U>, U: ?Sized> DispatchFromDyn<Weak<U>> for Weak<T> {}
 
 impl<T: ?Sized> fmt::Debug for Weak<T> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -1186,6 +1204,8 @@ impl<T: ?Sized> Deref for Arc<T> {
     }
 }
 
+// XXX TODO support PinCoerceUnsized for Arc & Weak (if possible)
+
 impl<T: ?Sized + CloneToUninit> Arc<T> {
     /// Makes a mutable reference into the given `Arc`.
     ///
@@ -1508,11 +1528,11 @@ impl Arc<dyn Any + Send + Sync> {
     /// }
     ///
     /// let my_string = "Hello World".to_string();
-    // TODO: CoerceUnsized is needed to cast Arc<String> -> Arc<dyn Any + Send + Sync> directly.
-    // /// print_if_string(Arc::new(my_string));
-    // /// print_if_string(Arc::new(0i8));
     /// print_if_string(Arc::from(Box::new(my_string) as Box<dyn Any + Send + Sync>));
     /// print_if_string(Arc::from(Box::new(0i8) as Box<dyn Any + Send + Sync>));
+    /// // or with XXX portable_atomic_no_core_unwind_safe CFG FEATURE ENABLED WITH RUST NIGHTLY:
+    /// // print_if_string(Arc::new(my_string));
+    /// // print_if_string(Arc::new(0i8));
     /// ```
     #[inline]
     pub fn downcast<T>(self) -> Result<Arc<T>, Self>
