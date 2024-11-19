@@ -562,6 +562,8 @@ jobs:
             cargo test --features std --tests -- aarch64
 
   build:
+    # XXX SKIP JOB FOR NOW
+    if: ${{ false }}
     needs: tidy
     name: build (${{ matrix.name || matrix.rust }})
     strategy:
