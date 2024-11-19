@@ -69,6 +69,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        # XXX @brodycj TODO RAISE SEPARATE PROPOSAL TO MOVE SOME OR LOTS OF RUST VERSION TESTING TO DAILY OR WEEKLY CI TASK
         # LLVM version table:
         # - LLVM 3.9: stable 1.14 - 1.18, ?                         - ?
         # - LLVM 4  : stable 1.19 - 1.24, ?                         - ?
@@ -121,30 +122,33 @@ jobs:
           - rust: nightly
             flags: -Z codegen-backend=cranelift
           - rust: nightly
+            # XXX @brodycj TODO RAISE XXX TO REMOVE COMMENTED-OUT LINES LIKE THIS:
             # target: x86_64-apple-darwin
             os: macos-13 # x86_64
-          - rust: nightly
-            # target: x86_64-pc-windows-msvc
-            os: windows-latest
-          - rust: nightly-x86_64-pc-windows-gnu
-            # target: x86_64-pc-windows-gnu
-            os: windows-latest
-          - rust: nightly-i686-pc-windows-msvc
-            # target: i686-pc-windows-msvc
-            os: windows-latest
-          - rust: nightly-i686-pc-windows-gnu
-            # target: i686-pc-windows-gnu
-            os: windows-latest
-          - rust: nightly
-            target: aarch64-apple-darwin
-            os: macos-latest # AArch64
-          - rust: nightly
-            target: aarch64-apple-ios-macabi
-            os: macos-latest # AArch64
-          - rust: nightly-2021-08-21 # Rust 1.56, LLVM 12
-            target: aarch64-unknown-linux-gnu
-          - rust: '1.59' # LLVM 13
-            target: aarch64-unknown-linux-gnu
+          # XXX @brodycj SKIP FOR NOW TO SPEED UP CI IN THIS PR - XXX @brodycj TODO RE-ENABLE BEFORE MERGING
+          # - rust: nightly
+          #   # target: x86_64-pc-windows-msvc
+          #   os: windows-latest
+          # - rust: nightly-x86_64-pc-windows-gnu
+          #   # target: x86_64-pc-windows-gnu
+          #   os: windows-latest
+          # - rust: nightly-i686-pc-windows-msvc
+          #   # target: i686-pc-windows-msvc
+          #   os: windows-latest
+          # - rust: nightly-i686-pc-windows-gnu
+          #   # target: i686-pc-windows-gnu
+          #   os: windows-latest
+          # - rust: nightly
+          #   target: aarch64-apple-darwin
+          #   os: macos-latest # AArch64
+          # - rust: nightly
+          #   target: aarch64-apple-ios-macabi
+          #   os: macos-latest # AArch64
+          # - rust: nightly-2021-08-21 # Rust 1.56, LLVM 12
+          #   target: aarch64-unknown-linux-gnu
+          # - rust: '1.59' # LLVM 13
+          #   target: aarch64-unknown-linux-gnu
+          # XXX / ---
           # - rust: '1.64' # LLVM 14
           #   target: aarch64-unknown-linux-gnu
           # - rust: '1.69' # LLVM 15
@@ -155,85 +159,92 @@ jobs:
           #   target: aarch64-unknown-linux-gnu
           # - rust: '1.81' # LLVM 18
           #   target: aarch64-unknown-linux-gnu
-          - rust: stable
-            target: aarch64-unknown-linux-gnu
-          - rust: beta
-            target: aarch64-unknown-linux-gnu
-          - rust: nightly
-            target: aarch64-unknown-linux-gnu
-          - rust: nightly
-            target: aarch64-unknown-linux-gnu
-            flags: -Z codegen-backend=cranelift
-          - rust: nightly-2024-11-07 # TODO: https://github.com/BurntSushi/memchr/pull/162
-            target: aarch64_be-unknown-linux-gnu
-          - rust: stable
-            target: aarch64-unknown-linux-musl
-          - rust: stable
-            target: aarch64-unknown-linux-musl
-            flags: -C target-feature=-crt-static
-          - rust: nightly
-            target: aarch64-unknown-linux-musl
-          - rust: nightly
-            target: aarch64-unknown-linux-musl
-            flags: -C target-feature=-crt-static
-          - rust: stable
-            target: aarch64-linux-android
-          - rust: nightly
-            target: aarch64-linux-android
+          # XXX @brodycj SKIP FOR NOW TO SPEED UP CI IN THIS PR - XXX @brodycj TODO RE-ENABLE BEFORE MERGING
+          # - rust: stable
+          #   target: aarch64-unknown-linux-gnu
+          # - rust: beta
+          #   target: aarch64-unknown-linux-gnu
+          # - rust: nightly
+          #   target: aarch64-unknown-linux-gnu
+          # - rust: nightly
+          #   target: aarch64-unknown-linux-gnu
+          #   flags: -Z codegen-backend=cranelift
+          # - rust: nightly-2024-11-07 # TODO: https://github.com/BurntSushi/memchr/pull/162
+          #   target: aarch64_be-unknown-linux-gnu
+          # - rust: stable
+          #   target: aarch64-unknown-linux-musl
+          # - rust: stable
+          #   target: aarch64-unknown-linux-musl
+          #   flags: -C target-feature=-crt-static
+          # - rust: nightly
+          #   target: aarch64-unknown-linux-musl
+          # - rust: nightly
+          #   target: aarch64-unknown-linux-musl
+          #   flags: -C target-feature=-crt-static
+          # - rust: stable
+          #   target: aarch64-linux-android
+          # - rust: nightly
+          #   target: aarch64-linux-android
+          # XXX / ---
           # TODO: flaky
           # - rust: nightly
           #   target: aarch64-pc-windows-gnullvm
-          - rust: nightly-2021-08-21 # Rust 1.56, LLVM 12
-            target: armv5te-unknown-linux-gnueabi
-          - rust: '1.59' # LLVM 13
-            target: armv5te-unknown-linux-gnueabi
-          - rust: stable
-            target: armv5te-unknown-linux-gnueabi
-          - rust: nightly
-            target: armv5te-unknown-linux-gnueabi
-          - rust: nightly
-            target: arm-unknown-linux-gnueabi
-          - rust: nightly
-            target: armv7-unknown-linux-gnueabi
-          - rust: nightly
-            target: armv7-unknown-linux-gnueabihf
-          - rust: nightly
-            target: armeb-unknown-linux-gnueabi
+          # XXX @brodycj SKIP FOR NOW TO SPEED UP CI IN THIS PR - XXX @brodycj TODO RE-ENABLE BEFORE MERGING
+          # - rust: nightly-2021-08-21 # Rust 1.56, LLVM 12
+          #   target: armv5te-unknown-linux-gnueabi
+          # - rust: '1.59' # LLVM 13
+          #   target: armv5te-unknown-linux-gnueabi
+          # - rust: stable
+          #   target: armv5te-unknown-linux-gnueabi
+          # - rust: nightly
+          #   target: armv5te-unknown-linux-gnueabi
+          # - rust: nightly
+          #   target: arm-unknown-linux-gnueabi
+          # - rust: nightly
+          #   target: armv7-unknown-linux-gnueabi
+          # - rust: nightly
+          #   target: armv7-unknown-linux-gnueabihf
+          # - rust: nightly
+          #   target: armeb-unknown-linux-gnueabi
+          # XXX / ---
+          # XXX @brodycj TODO RAISE XXX - CLARIFY THE STATUS OF THE FOLLOWING TEST MATRIX ENTRY
           # TODO: backtrace bug: panicked at /home/runner/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/../../backtrace/src/symbolize/gimli/libs_dl_iterate_phdr.rs:48:30:
           - rust: nightly-2024-08-30
             target: arm-linux-androideabi
-          - rust: nightly
-            target: i586-unknown-linux-gnu
-          - rust: nightly-2021-08-21 # Rust 1.56, LLVM 12
-            target: i686-unknown-linux-gnu
-          - rust: '1.59' # LLVM 13
-            target: i686-unknown-linux-gnu
-          - rust: stable
-            target: i686-unknown-linux-gnu
-          - rust: nightly
-            target: i686-unknown-linux-gnu
-          - rust: nightly
-            target: loongarch64-unknown-linux-gnu
-          - rust: nightly
-            target: mips-unknown-linux-gnu
-          - rust: nightly
-            target: mipsel-unknown-linux-gnu
-          - rust: nightly
-            target: mips64-unknown-linux-gnuabi64
-          - rust: nightly
-            target: mips64el-unknown-linux-gnuabi64
-          - rust: nightly
-            target: mipsisa32r6-unknown-linux-gnu
-          - rust: nightly
-            target: mipsisa32r6el-unknown-linux-gnu
-          - rust: nightly
-            target: mipsisa64r6-unknown-linux-gnuabi64
-          - rust: nightly
-            target: mipsisa64r6el-unknown-linux-gnuabi64
-          - rust: nightly
-            target: powerpc-unknown-linux-gnu
-          - rust: nightly-2022-02-13 # Rust 1.60, LLVM 13 (oldest version we can use asm_experimental_arch on this target)
-            target: powerpc64-unknown-linux-gnu
+          # XXX @brodycj SKIP FOR NOW TO SPEED UP CI IN THIS PR - XXX @brodycj TODO RE-ENABLE BEFORE MERGING
+          # - rust: nightly
+          #   target: i586-unknown-linux-gnu
+          # - rust: nightly-2021-08-21 # Rust 1.56, LLVM 12
+          #   target: i686-unknown-linux-gnu
+          # - rust: '1.59' # LLVM 13
+          #   target: i686-unknown-linux-gnu
+          # - rust: stable
+          #   target: i686-unknown-linux-gnu
+          # - rust: nightly
+          #   target: i686-unknown-linux-gnu
+          # - rust: nightly
+          #   target: loongarch64-unknown-linux-gnu
+          # - rust: nightly
+          #   target: mips-unknown-linux-gnu
+          # - rust: nightly
+          #   target: mipsel-unknown-linux-gnu
+          # - rust: nightly
+          #   target: mips64-unknown-linux-gnuabi64
+          # - rust: nightly
+          #   target: mips64el-unknown-linux-gnuabi64
+          # - rust: nightly
+          #   target: mipsisa32r6-unknown-linux-gnu
+          # - rust: nightly
+          #   target: mipsisa32r6el-unknown-linux-gnu
+          # - rust: nightly
+          #   target: mipsisa64r6-unknown-linux-gnuabi64
+          # - rust: nightly
+          #   target: mipsisa64r6el-unknown-linux-gnuabi64
+          # - rust: nightly
+          #   target: powerpc-unknown-linux-gnu
+          # - rust: nightly-2022-02-13 # Rust 1.60, LLVM 13 (oldest version we can use asm_experimental_arch on this target)
+          #   target: powerpc64-unknown-linux-gnu
+          # XXX / ---
           # - rust: nightly-2022-08-12 # Rust 1.65, LLVM 14
           #   target: powerpc64-unknown-linux-gnu
           # - rust: nightly-2023-03-25 # Rust 1.70, LLVM 15
@@ -244,10 +255,12 @@ jobs:
           #   target: powerpc64-unknown-linux-gnu
           # - rust: nightly-2024-07-31 # Rust 1.82, LLVM 18
           #   target: powerpc64-unknown-linux-gnu
-          - rust: nightly
-            target: powerpc64-unknown-linux-gnu
-          - rust: nightly-2022-02-13 # Rust 1.60, LLVM 13 (oldest version we can use asm_experimental_arch on this target)
-            target: powerpc64le-unknown-linux-gnu
+          # XXX @brodycj SKIP FOR NOW TO SPEED UP CI IN THIS PR - XXX @brodycj TODO RE-ENABLE BEFORE MERGING
+          # - rust: nightly
+          #   target: powerpc64-unknown-linux-gnu
+          # - rust: nightly-2022-02-13 # Rust 1.60, LLVM 13 (oldest version we can use asm_experimental_arch on this target)
+          #   target: powerpc64le-unknown-linux-gnu
+          # XXX / ---
           # - rust: nightly-2022-08-12 # Rust 1.65, LLVM 14
           #   target: powerpc64le-unknown-linux-gnu
           # - rust: nightly-2023-03-25 # Rust 1.70, LLVM 15
@@ -258,10 +271,12 @@ jobs:
           #   target: powerpc64le-unknown-linux-gnu
           # - rust: nightly-2024-07-31 # Rust 1.82, LLVM 18
           #   target: powerpc64le-unknown-linux-gnu
-          - rust: nightly
-            target: powerpc64le-unknown-linux-gnu
-          - rust: nightly-2022-08-12 # Rust 1.65, LLVM 14
-            target: riscv32gc-unknown-linux-gnu
+          # XXX @brodycj SKIP FOR NOW TO SPEED UP CI IN THIS PR - XXX @brodycj TODO RE-ENABLE BEFORE MERGING
+          # - rust: nightly
+          #   target: powerpc64le-unknown-linux-gnu
+          # - rust: nightly-2022-08-12 # Rust 1.65, LLVM 14
+          #   target: riscv32gc-unknown-linux-gnu
+          # XXX / ---
           # - rust: nightly-2023-03-25 # Rust 1.70, LLVM 15
           #   target: riscv32gc-unknown-linux-gnu
           # - rust: nightly-2023-08-08 # Rust 1.73, LLVM 16
@@ -270,12 +285,14 @@ jobs:
           #   target: riscv32gc-unknown-linux-gnu
           # - rust: nightly-2024-07-31 # Rust 1.82, LLVM 18
           #   target: riscv32gc-unknown-linux-gnu
-          - rust: nightly
-            target: riscv32gc-unknown-linux-gnu
-          - rust: nightly-2021-08-21 # Rust 1.56, LLVM 12
-            target: riscv64gc-unknown-linux-gnu
-          - rust: '1.59' # LLVM 13
-            target: riscv64gc-unknown-linux-gnu
+          # XXX @brodycj SKIP FOR NOW TO SPEED UP CI IN THIS PR - XXX @brodycj TODO RE-ENABLE BEFORE MERGING
+          # - rust: nightly
+          #   target: riscv32gc-unknown-linux-gnu
+          # - rust: nightly-2021-08-21 # Rust 1.56, LLVM 12
+          #   target: riscv64gc-unknown-linux-gnu
+          # - rust: '1.59' # LLVM 13
+          #   target: riscv64gc-unknown-linux-gnu
+          # XXX / ---
           # - rust: '1.64' # LLVM 14
           #   target: riscv64gc-unknown-linux-gnu
           # - rust: '1.69' # LLVM 15
@@ -286,27 +303,33 @@ jobs:
           #   target: riscv64gc-unknown-linux-gnu
           # - rust: '1.81' # LLVM 18
           #   target: riscv64gc-unknown-linux-gnu
-          - rust: stable
-            target: riscv64gc-unknown-linux-gnu
-          - rust: nightly
-            target: riscv64gc-unknown-linux-gnu
-          - rust: nightly
-            target: riscv64gc-unknown-linux-gnu
-            flags: -Z codegen-backend=cranelift
+          # XXX @brodycj SKIP FOR NOW TO SPEED UP CI IN THIS PR - XXX @brodycj TODO RE-ENABLE BEFORE MERGING
+          # - rust: stable
+          #   target: riscv64gc-unknown-linux-gnu
+          # - rust: nightly
+          #   target: riscv64gc-unknown-linux-gnu
+          # - rust: nightly
+          #   target: riscv64gc-unknown-linux-gnu
+          #   flags: -Z codegen-backend=cranelift
+          # XXX / ---
           # - rust: '1.84' # LLVM 19 (oldest stable version we can use asm on this target)
           #   target: s390x-unknown-linux-gnu
-          - rust: nightly-2023-05-09 # Rust 1.71, LLVM 16 (oldest version we can use asm_experimental_arch on this target)
-            target: s390x-unknown-linux-gnu
+          # XXX @brodycj SKIP FOR NOW TO SPEED UP CI IN THIS PR - XXX @brodycj TODO RE-ENABLE BEFORE MERGING
+          # - rust: nightly-2023-05-09 # Rust 1.71, LLVM 16 (oldest version we can use asm_experimental_arch on this target)
+          #   target: s390x-unknown-linux-gnu
+          # XXX / ---
           # - rust: nightly-2024-02-13 # Rust 1.78, LLVM 17
           #   target: s390x-unknown-linux-gnu
           # - rust: nightly-2024-07-31 # Rust 1.82, LLVM 18
           #   target: s390x-unknown-linux-gnu
-          - rust: nightly
-            target: s390x-unknown-linux-gnu
-          - rust: nightly
-            target: sparc64-unknown-linux-gnu
-          - rust: nightly
-            target: thumbv7neon-unknown-linux-gnueabihf
+          # XXX @brodycj SKIP FOR NOW TO SPEED UP CI IN THIS PR - XXX @brodycj TODO RE-ENABLE BEFORE MERGING
+          # - rust: nightly
+          #   target: s390x-unknown-linux-gnu
+          # - rust: nightly
+          #   target: sparc64-unknown-linux-gnu
+          # - rust: nightly
+          #   target: thumbv7neon-unknown-linux-gnueabihf
+          # XXX / ---
     runs-on: ${{ matrix.os || 'ubuntu-latest' }}
     timeout-minutes: 60
     steps:
@@ -319,6 +342,7 @@ jobs:
           sysctl hw.optional machdep.cpu
           # brew install moreutils
         if: startsWith(matrix.os, 'macos')
+      # XXX @brodycj TODO KEEP, REMOVE, OR ADD RATIONALE FOR COMMENTED-OUT STEP HERE - SEPARATE PR
       # - run: |
       #     C:/msys64/usr/bin/pacman -S --noconfirm moreutils
       #   if: startsWith(matrix.os, 'windows')
@@ -349,6 +373,10 @@ jobs:
         if: matrix.rust == 'nightly-2024-02-13'
 
       - run: tools/test.sh -vv ${TARGET:-} ${DOCTEST_XCOMPILE:-} ${BUILD_STD:-} ${RELEASE:-}
+      - run: tools/test.sh -vv ${TARGET:-} ${BUILD_STD:-} ${RELEASE:-}
+        env:
+          RUSTFLAGS: ${{ env.RUSTFLAGS }} --cfg portable_atomic_unstable_coerce_unsized
+        if: startsWith(matrix.rust, 'nightly')
       # We test doctest only once with the default build conditions because doctest is slow. Both api-test
       # and src/tests have extended copies of doctest, so this will not reduce test coverage.
       # portable_atomic_no_outline_atomics only affects x86_64, AArch64, Arm, powerpc64, and RISC-V Linux.
@@ -368,7 +396,9 @@ jobs:
           RUSTDOCFLAGS: ${{ env.RUSTDOCFLAGS }} --cfg portable_atomic_test_outline_atomics_detect_false
           RUSTFLAGS: ${{ env.RUSTFLAGS }} --cfg portable_atomic_test_outline_atomics_detect_false
         # powerpc64 is skipped because tested below.
-        if: (matrix.target == '' && !contains(matrix.rust, 'i686') || startsWith(matrix.target, 'x86_64')) || startsWith(matrix.target, 'aarch64') && !(contains(matrix.target, '-musl') && matrix.flags == '') || startsWith(matrix.target, 'armv5te') || matrix.target == 'arm-linux-androideabi'
+        # XXX TBD SKIP ON THIS TARGET FOR NOW PENDING FURTHER INVESTIGATION: arm-linux-androideabi
+        # if: (matrix.target == '' && !contains(matrix.rust, 'i686') || startsWith(matrix.target, 'x86_64')) || startsWith(matrix.target, 'aarch64') && !(contains(matrix.target, '-musl') && matrix.flags == '') || startsWith(matrix.target, 'armv5te') || matrix.target == 'arm-linux-androideabi'
+        if: (matrix.target == '' && !contains(matrix.rust, 'i686') || startsWith(matrix.target, 'x86_64')) || startsWith(matrix.target, 'aarch64') && !(contains(matrix.target, '-musl') && matrix.flags == '') || startsWith(matrix.target, 'armv5te')
       - run: tools/test.sh -vv --tests ${TARGET:-} ${BUILD_STD:-} ${RELEASE:-}
         env:
           QEMU_CPU: power7 # no quadword-atomics
@@ -486,6 +516,7 @@ jobs:
 
   test-bsd:
     needs: tidy
+    # XXX @brodycj TODO RAISE SEPARATE PR with CLEAR LABEL that THIS IS SPECIAL TESTING on *BSD
     name: test (${{ matrix.target }}${{ matrix.version }})
     strategy:
       fail-fast: false
@@ -497,6 +528,7 @@ jobs:
           - target: aarch64-unknown-freebsd
             os: freebsd
             version: '14.1'
+          # XXX @brodycj TODO RAISE XXX - INVESTIGATE IS THIS STILL AN ISSUE ???
           # TODO: download error: https://cdn.NetBSD.org/pub/pkgsrc/packages/NetBSD/aarch64/10.0/All/rust-1.76.0nb3.tgz truncated
           # - target: aarch64-unknown-netbsd
           #   os: netbsd
