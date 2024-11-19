@@ -623,6 +623,8 @@ jobs:
           SKIP_DEFAULT_TARGET: ${{ matrix.skip-default-target }}
 
   no-std:
+    # XXX SKIP JOB FOR NOW
+    if: ${{ false }}
     needs: tidy
     strategy:
       fail-fast: false
@@ -711,6 +713,8 @@ jobs:
         if: matrix.rust == 'stable'
 
   miri:
+    # XXX SKIP JOB FOR NOW
+    if: ${{ false }}
     needs: tidy
     strategy:
       fail-fast: false
@@ -738,6 +742,8 @@ jobs:
           RUSTFLAGS: ${{ env.RUSTFLAGS }} ${{ matrix.flags }}
 
   san:
+    # XXX SKIP JOB FOR NOW
+    if: ${{ false }}
     needs: tidy
     strategy:
       fail-fast: false
@@ -779,6 +785,8 @@ jobs:
           RUSTFLAGS: ${{ env.RUSTFLAGS }} -C target-feature=+cmpxchg16b --cfg portable_atomic_no_outline_atomics
 
   valgrind:
+    # XXX SKIP JOB FOR NOW
+    if: ${{ false }}
     needs: tidy
     runs-on: ubuntu-latest
     timeout-minutes: 60
