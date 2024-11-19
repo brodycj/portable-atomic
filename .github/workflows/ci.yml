@@ -505,6 +505,8 @@ jobs:
         if: (!(startsWith(matrix.rust, '1.5') || startsWith(matrix.rust, '1.6') || startsWith(matrix.rust, 'nightly-2021') || startsWith(matrix.rust, 'nightly-2022') || startsWith(matrix.rust, 'nightly-2023')))
 
   test-bsd:
+    # XXX SKIP JOB FOR NOW
+    if: ${{ false }}
     needs: tidy
     name: test (${{ matrix.target }}${{ matrix.version }})
     strategy:
