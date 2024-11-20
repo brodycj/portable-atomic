@@ -54,7 +54,7 @@ Or set environment variable:
 RUSTFLAGS="--cfg portable_atomic_unstable_coerce_unsized" cargo ...
 ```
 
-- <a name="portable-atomic-unstable-coerce-unsized"></a>**`--cfg portable_atomic_unstable_coerce_unsized`**<br> support standard coercing of `Arc<T>` to `Arc<U>` and same for weak references
+- <a name="portable-atomic-unstable-coerce-unsized"></a>**`--cfg portable_atomic_unstable_coerce_unsized`**<br> support standard coercing of `Arc<T>` to `Arc<U>`
 
 This coercing requires Rust nightly to compile (with help from [unstable `CoerceUnsized` trait](https://doc.rust-lang.org/nightly/core/ops/trait.CoerceUnsized.html)).
 

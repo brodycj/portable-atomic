@@ -304,8 +304,8 @@ mod alloc_tests {
     //     assert_eq!(unsafe { &*ptr }, "foo");
     //     assert!(weak.ptr_eq(&weak2));
 
-    //     // XXX TODO UPDATE THIS FOR NEW portable_atomic_unstable_coerce_unsized cfg option
     //     // TODO: CoerceUnsized is needed to cast to Arc<dyn ..>
+    //     // (may be possible to support this with portable_atomic_unstable_coerce_unsized cfg option)
     //     // let arc: Arc<dyn Display> = Arc::new(123);
     //     let arc: Arc<dyn Display> = Arc::from(Box::new(123) as Box<dyn Display>);
     //     let weak: Weak<dyn Display> = Arc::downgrade(&arc);
@@ -491,16 +491,6 @@ mod alloc_tests {
         let y = Arc::downgrade(&x.clone());
         drop(x);
         assert!(y.upgrade().is_none());
-    }
-
-    #[test]
-    #[cfg(portable_atomic_unstable_coerce_unsized)]
-    fn test_weak_unsized() {
-        // XXX XXX KNOWN TEST FAILURE INJECTED WITH DASH (NEGATIVE) SIGN - XXX TODO REMOVE ONCE THIS KNOWN FAILURE SHOWS UP AS EXPECTED IN CI
-        let x = Arc::new([-1, 2, 3]);
-        let y: Weak<[i32]> = Arc::downgrade(&x.clone());
-        // XXX TBD MAY NEED TO FIX THIS:
-        assert_eq!(format!("{:?}", y), "[1, 2, 3]");
     }
 
     #[test]

@@ -2,7 +2,7 @@
 
 // This module is based on alloc::sync::Arc.
 //
-// The code has been adjusted to work with stable Rust.
+// The code has been adjusted to work with stable Rust (with unstable cfg option).
 //
 // Source: https://github.com/rust-lang/rust/blob/a0c2aba29aa9ea50a7c45c3391dd446f856bef7b/library/alloc/src/sync.rs.
 //
@@ -149,6 +149,9 @@ impl<T: ?Sized> Arc<T> {
 /// This is an equivalent to [`std::sync::Weak`], but using [portable-atomic] for synchronization.
 /// See the documentation for [`std::sync::Weak`] for more details.
 ///
+/// **Note:** Unlike `std::sync::Weak`, coercing `Weak<T>` to `Weak<U>` is not possible, not even if
+/// the optional cfg `portable_atomic_unstable_coerce_unsized` is enabled.
+///
 /// [`upgrade`]: Weak::upgrade
 /// [portable-atomic]: https://crates.io/crates/portable-atomic
 ///
@@ -180,9 +183,6 @@ pub struct Weak<T: ?Sized> {
 
 unsafe impl<T: ?Sized + Sync + Send> Send for Weak<T> {}
 unsafe impl<T: ?Sized + Sync + Send> Sync for Weak<T> {}
-
-#[cfg(portable_atomic_unstable_coerce_unsized)]
-impl<T: ?Sized + Unsize<U>, U: ?Sized> CoerceUnsized<Weak<U>> for Weak<T> {}
 
 impl<T: ?Sized> fmt::Debug for Weak<T> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
