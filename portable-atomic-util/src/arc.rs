@@ -80,7 +80,7 @@ macro_rules! acquire {
 /// See the documentation for [`std::sync::Arc`] for more details.
 ///
 /// **Note:** Unlike `std::sync::Arc`, coercing `Arc<T>` to `Arc<U>` is only possible if
-/// the optional cfg `portable_atomic_unstable_coerce_unsized` is enabled, as documented for this crate,
+/// the optional cfg `portable_atomic_unstable_coerce_unsized` is enabled, as documented at the crate-level documentation,
 /// and this optional cfg item is only supported with Rust nightly version.
 /// This is because coercing the pointee requires the
 /// [unstable `CoerceUnsized` trait](https://doc.rust-lang.org/nightly/core/ops/trait.CoerceUnsized.html).
