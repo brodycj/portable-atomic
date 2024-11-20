@@ -481,8 +481,10 @@ mod alloc_tests {
 
     #[test]
     fn test_unsized() {
-        // TODO: CoerceUnsized is needed to cast to Arc<[..]>
-        // let x: Arc<[i32]> = Arc::new([1, 2, 3]);
+        #[cfg(portable_atomic_unstable_coerce_unsized)]
+        let x: Arc<[i32]> = Arc::new([1, 2, 3]);
+        // TODO: This is a workaround in case CoerceUnsized is not available - remove once this is no longer needed
+        #[not(cfg(portable_atomic_unstable_coerce_unsized))]
         let x: Arc<[i32]> = Arc::from(Box::new([1, 2, 3]) as Box<[i32]>);
         assert_eq!(format!("{:?}", x), "[1, 2, 3]");
         let y = Arc::downgrade(&x.clone());
@@ -656,11 +658,17 @@ mod alloc_tests {
     fn test_downcast() {
         use std::any::Any;
 
-        // TODO: CoerceUnsized is needed to cast to Arc<dyn ..>
-        // let r1: Arc<dyn Any + Send + Sync> = Arc::new(i32::MAX);
-        // let r2: Arc<dyn Any + Send + Sync> = Arc::new("abc");
+        #[cfg(portable_atomic_unstable_coerce_unsized)]
+        let r1: Arc<dyn Any + Send + Sync> = Arc::new(i32::MAX);
+        // TODO: This is a workaround in case CoerceUnsized is not available - remove once this is no longer needed
+        #[not(cfg(portable_atomic_unstable_coerce_unsized))]
         let r1: Arc<dyn Any + Send + Sync> =
             Arc::from(Box::new(i32::MAX) as Box<dyn Any + Send + Sync>);
+
+        #[cfg(portable_atomic_unstable_coerce_unsized)]
+        let r2: Arc<dyn Any + Send + Sync> = Arc::new("abc");
+        // TODO: This is a workaround in case CoerceUnsized is not available - remove once this is no longer needed
+        #[not(cfg(portable_atomic_unstable_coerce_unsized))]
         let r2: Arc<dyn Any + Send + Sync> =
             Arc::from(Box::new("abc") as Box<dyn Any + Send + Sync>);
 
