@@ -349,7 +349,7 @@ jobs:
         if: matrix.rust == 'nightly-2024-02-13'
 
       - run: tools/test.sh -vv ${TARGET:-} ${DOCTEST_XCOMPILE:-} ${BUILD_STD:-} ${RELEASE:-}
-      - run: tools/test.sh -vv ${TARGET:-} ${BUILD_STD:-} ${RELEASE:-}
+      - run: tools/test.sh -vv --tests ${TARGET:-} ${BUILD_STD:-} ${RELEASE:-}
         env:
           RUSTFLAGS: ${{ env.RUSTFLAGS }} --cfg portable_atomic_unstable_coerce_unsized
         if: startsWith(matrix.rust, 'nightly')
