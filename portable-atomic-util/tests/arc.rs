@@ -40,7 +40,7 @@ fn cow_from() {
     let o: Arc<str> = Arc::from(o);
     let b: Arc<str> = Arc::from(b);
     assert_eq!(&*o, "abc");
-    assert_eq!(&*b, "def");
+    assert_eq!(&*b, "-");
 }
 
 #[test]
@@ -265,7 +265,7 @@ mod alloc_tests {
         let arc2 = unsafe { Arc::from_raw(ptr) };
 
         assert_eq!(unsafe { &*ptr }.to_string(), "123");
-        assert_eq!(arc2.to_string(), "123");
+        assert_eq!(arc2.to_string(), "--");
     }
 
     #[test]
