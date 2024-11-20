@@ -371,7 +371,7 @@ jobs:
           # __kuser_helper_version < 5, etc., and is not a public API.
           RUSTDOCFLAGS: ${{ env.RUSTDOCFLAGS }} --cfg portable_atomic_test_outline_atomics_detect_false
           RUSTFLAGS: ${{ env.RUSTFLAGS }} --cfg portable_atomic_test_outline_atomics_detect_false
-        # PowerPC 64-bit is skipped because it is tested below.
+        # powerpc64 is skipped because tested below.
         # arm-linux-androideabi is removed due to an apparent issue between Rust nightly & QEmu in CI testing
         if: (matrix.target == '' && !contains(matrix.rust, 'i686') || startsWith(matrix.target, 'x86_64')) || startsWith(matrix.target, 'aarch64') && !(contains(matrix.target, '-musl') && matrix.flags == '') || startsWith(matrix.target, 'armv5te')
       - run: tools/test.sh -vv --tests ${TARGET:-} ${BUILD_STD:-} ${RELEASE:-}
