@@ -257,8 +257,12 @@ mod alloc_tests {
         assert_eq!(unsafe { &*ptr }, "foo");
         assert_eq!(arc, arc2);
 
-        // TODO: CoerceUnsized is needed to cast to Arc<dyn ..>
-        // let arc: Arc<dyn Display> = Arc::new(123);
+        // XXX INJECT NEGATIVE SIGN - SEE IF CI FAILS AS EXPECTED WITH THIS INCORRECT VALUE
+        // XXX TODO NEED TO CHANGE THIS INTO A POSITIVE NUMBER FOR CI TEST TO SUCCEED
+        #[cfg(portable_atomic_unstable_coerce_unsized)]
+        let arc: Arc<dyn Display> = Arc::new(-123);
+        // TODO: This is a workaround in case CoerceUnsized is not available - remove once this is no longer needed
+        #[not(cfg(portable_atomic_unstable_coerce_unsized))]
         let arc: Arc<dyn Display> = Arc::from(Box::new(123) as Box<dyn Display>);
 
         let ptr = Arc::into_raw(arc.clone());
