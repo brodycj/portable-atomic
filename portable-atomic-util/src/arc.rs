@@ -2244,7 +2244,7 @@ impl<T> Default for Arc<[T]> {
     #[inline]
     fn default() -> Self {
         // TODO: we cannot use non-allocation optimization (https://github.com/rust-lang/rust/blob/1.80.0/library/alloc/src/sync.rs#L3449)
-        // for now since casting Arc<[T; N]> -> Arc<[T]> requires unstable CoerceUnsized from Rust nightly.
+        // for now since casting Arc<[T; N]> -> Arc<[T]> requires unstable CoerceUnsized.
         let arr: [T; 0] = [];
         Arc::from(arr)
     }
