@@ -85,7 +85,7 @@ macro_rules! acquire {
 /// This is because coercing the pointee requires the
 /// [unstable `CoerceUnsized` trait](https://doc.rust-lang.org/nightly/core/ops/trait.CoerceUnsized.html).
 /// See [this issue comment](https://github.com/taiki-e/portable-atomic/issues/143#issuecomment-1866488569)
-/// for a workaround that works with stable and beta Rust channels.
+/// for a workaround that works without depending on unstable features.
 ///
 /// [portable-atomic]: https://crates.io/crates/portable-atomic
 ///
