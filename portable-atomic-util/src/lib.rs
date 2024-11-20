@@ -82,7 +82,7 @@ See [this issue comment](https://github.com/taiki-e/portable-atomic/issues/143#i
 #![allow(clippy::inline_always)]
 // docs.rs only (cfg is enabled by docs.rs, not build script)
 #![cfg_attr(docsrs, feature(doc_cfg))]
-// Enable custom unsized coercions if needed by cfg
+// Enable custom unsized coercions if the user explicitly opts-in to unstable cfg
 #![cfg_attr(portable_atomic_unstable_coerce_unsized, feature(coerce_unsized, unsize))]
 
 #[cfg(all(feature = "alloc", not(portable_atomic_no_alloc)))]
