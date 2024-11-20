@@ -665,8 +665,10 @@ mod alloc_tests {
         let r1: Arc<dyn Any + Send + Sync> =
             Arc::from(Box::new(i32::MAX) as Box<dyn Any + Send + Sync>);
 
+        // XXX INJECT DASH SIGN - SEE IF CI FAILS AS EXPECTED WITH THIS INCORRECT VALUE
+        // XXX TODO NEED TO REMOVE DASH SIGN FOR CI TEST TO SUCCEED
         #[cfg(portable_atomic_unstable_coerce_unsized)]
-        let r2: Arc<dyn Any + Send + Sync> = Arc::new("abc");
+        let r2: Arc<dyn Any + Send + Sync> = Arc::new("-abc");
         // TODO: This is a workaround in case CoerceUnsized is not available - remove once this is no longer needed
         #[not(cfg(portable_atomic_unstable_coerce_unsized))]
         let r2: Arc<dyn Any + Send + Sync> =
