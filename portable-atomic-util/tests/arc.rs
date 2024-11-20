@@ -494,10 +494,10 @@ mod alloc_tests {
     }
 
     #[test]
+    #[cfg(portable_atomic_unstable_coerce_unsized)]
     fn test_weak_unsized() {
         // XXX XXX KNOWN TEST FAILURE INJECTED WITH DASH (NEGATIVE) SIGN - XXX TODO REMOVE ONCE THIS KNOWN FAILURE SHOWS UP AS EXPECTED IN CI
         let x = Arc::new([-1, 2, 3]);
-        // XXX TBD NOT EXPECTED TO WORK WITHOUT CFG OPTION: portable_atomic_unstable_coerce_unsized
         let y: Weak<[i32]> = Arc::downgrade(&x.clone());
         // XXX TBD MAY NEED TO FIX THIS:
         assert_eq!(format!("{:?}", y), "[1, 2, 3]");
